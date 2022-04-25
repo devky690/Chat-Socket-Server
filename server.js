@@ -13,9 +13,21 @@ let count = 0;
 
 io.on("connection", socket => {
   console.log("New socket connection: " + socket.id);
+  socket.userName = "Anonymous";
 
   socket.on("counter", () => {
     count++;
     io.emit("counter", count);
+  });
+
+  //for login and registration
+  socket.on("send-name", name => {
+    socket.userName = name || "Anonymous";
+    console.log(socket.userName);
+  });
+
+  socket.on("send-msg", message => {
+    console.log(message);
+    socket.emit("receive-msg", message, `${socket.userName}: `);
   });
 });
