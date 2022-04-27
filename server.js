@@ -26,9 +26,10 @@ io.on("connection", socket => {
     console.log(socket.userName);
   });
 
-  socket.on("send-msg", message => {
+  socket.on("send-msg", message, username => {
     console.log(message);
-    socket.emit("receive-msg", message, `${socket.userName}: `);
+    console.log(username);
+    socket.emit("receive-msg", message, username);
   });
 });
 
