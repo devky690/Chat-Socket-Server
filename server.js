@@ -26,10 +26,10 @@ io.on("connection", socket => {
     console.log(socket.userName);
   });
 
-  socket.on("send-msg", message, username => {
+  socket.on("send-msg", (message, username) => {
     console.log(message);
     console.log(username);
-    io.emit("receive-msg", message, username);
+    io.emit("receive-msg", message, username, socket.id);
   });
 });
 
