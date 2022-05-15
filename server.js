@@ -15,6 +15,7 @@ io.on("connection", socket => {
   socket.on("login", name => {
     console.log(name);
     socket.userName = name || "Anonymous";
+    io.to(socket.id).emit("receive-login", socket.userName);
   });
 
   socket.on("send-msg", message => {
