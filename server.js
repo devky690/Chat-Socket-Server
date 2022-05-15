@@ -5,17 +5,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT);
 
-console.log("Server is running");
-
 const io = socket(server);
-
-let count = 0;
 
 io.on("connection", socket => {
   console.log("New socket connection: " + socket.id);
   socket.userName = "Anonymous";
 
-  //for login and registration
+  //for login
   socket.on("login", name => {
     socket.userName = name || "Anonymous";
     console.log(socket.userName);
@@ -35,6 +31,9 @@ io.on("connection", socket => {
     const loginName = socket.userName;
     console.log(loginName);
     io.emit("receive-stats", loginName, gamerTag, kd, winRate, wins);
+  });
+  socket.on("logout", () => {
+    socket.userName = "Anonymous";
   });
 });
 
