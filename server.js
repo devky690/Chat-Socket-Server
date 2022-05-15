@@ -27,14 +27,14 @@ io.on("connection", socket => {
     io.emit("receive-msg", message, username, socket.id);
   });
 
-  socket.on("send-stats", (gamerTag, kd, wins, winRate) => {
+  socket.on("send-stats", (gamerTag, kd, winRate, wins) => {
     console.log(gamerTag);
     console.log(kd);
     console.log(wins);
     console.log(winRate);
-    console.log(loginName);
     const loginName = socket.userName;
-    io.emit("receive-stats", loginName, gamerTag, kd, wins, winRate);
+    console.log(loginName);
+    io.emit("receive-stats", loginName, gamerTag, kd, winRate, wins);
   });
 });
 
