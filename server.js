@@ -13,6 +13,7 @@ io.on("connection", socket => {
 
   //for login
   socket.on("login", name => {
+    console.log(name);
     socket.userName = name || "Anonymous";
   });
 
