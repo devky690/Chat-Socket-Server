@@ -14,22 +14,14 @@ io.on("connection", socket => {
   //for login
   socket.on("login", name => {
     socket.userName = name || "Anonymous";
-    console.log(socket.userName);
   });
 
   socket.on("send-msg", message => {
-    console.log(message);
-    console.log(username);
     io.emit("receive-msg", message, socket.userName, socket.id);
   });
 
   socket.on("send-stats", (gamerTag, kd, winRate, wins) => {
-    console.log(gamerTag);
-    console.log(kd);
-    console.log(wins);
-    console.log(winRate);
     const loginName = socket.userName;
-    console.log(loginName);
     io.emit("receive-stats", loginName, gamerTag, kd, winRate, wins);
   });
   socket.on("logout", () => {
