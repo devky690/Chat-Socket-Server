@@ -15,13 +15,8 @@ io.on("connection", socket => {
   console.log("New socket connection: " + socket.id);
   socket.userName = "Anonymous";
 
-  socket.on("counter", () => {
-    count++;
-    io.emit("counter", count);
-  });
-
   //for login and registration
-  socket.on("send-name", name => {
+  socket.on("login", name => {
     socket.userName = name || "Anonymous";
     console.log(socket.userName);
   });
@@ -30,6 +25,16 @@ io.on("connection", socket => {
     console.log(message);
     console.log(username);
     io.emit("receive-msg", message, username, socket.id);
+  });
+
+  socket.on("send-stats", (gamerTag, kd, wins, winRate) => {
+    console.log(gamerTag);
+    console.log(kd);
+    console.log(wins);
+    console.log(winRate);
+    console.log(loginName);
+    const loginName = socket.userName;
+    io.emit("receive-stats", loginName, gamerTag, kd, wins, winRate);
   });
 });
 
